@@ -10,10 +10,15 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.alert import Alert
+import os
 
-options=Options()
-options.add_argument('start-maximized')
-driver=webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--disable-dev-shm-usage")
+chrome_options.add_argument("--no-sandbox")
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
 driver.get('https://www.youtube.com/watch?v=kHslscqoxvA')
 time.sleep(2)
